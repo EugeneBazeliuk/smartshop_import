@@ -1,0 +1,34 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: smartshop.import::lang.template.label
+
+# Model Form Field configuration
+form: $/smartshop/import/models/template/fields.yaml
+
+# Model Class name
+modelClass: Smartshop\Import\Models\Template
+
+# Default redirect location
+defaultRedirect: smartshop/import/templates
+
+# Create page
+create:
+    title: smartshop.import::lang.template.create_title
+    redirect: smartshop/import/templates/update/:id
+    redirectClose: smartshop/import/templates
+    flashSave: smartshop.import::lang.template.save_flash
+
+# Update page
+update:
+    title: smartshop.import::lang.template.update_title
+    redirect: smartshop/import/templates
+    redirectClose: smartshop/import/templates
+    flashSave: smartshop.import::lang.template.save_flash
+    flashDelete: smartshop.import::lang.template.delete_flash
+
+# Preview page
+preview:
+    title: smartshop.import::lang.template.preview_title

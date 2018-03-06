@@ -1,0 +1,21 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+
+    name:
+        label: smartshop.import::lang.template.name
+        searchable: true
+
+    created_at:
+        label: smartshop.import::lang.template.created
+        type: date
+        width: 180px
+        invisible: true
+
+    updated_at:
+        label: smartshop.import::lang.template.updated
+        type: date
+        width: 180px
+        invisible: true

@@ -1,0 +1,63 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+
+    name:
+        label: smartshop.import::lang.template.name
+        type: text
+        span: auto
+
+    file:
+        label: smartshop.import::lang.template.file
+        type: fileupload
+        mode: file
+        span: auto
+        fileTypes: xml
+        useCaption: false
+
+    description:
+        label: smartshop.import::lang.template.description
+        type: textarea
+        span: full
+        size: small
+
+    mapping:
+        label: smartshop.import::lang.template.mapping
+        span: full
+        type: datatable
+        toolbar: true
+        adding: false
+        deleting: true
+        rowSorting: true
+        dependsOn: [file]
+        columns:
+            file_column:
+                title: smartshop.import::lang.template.mapping_file_column
+                readOnly: 1
+            file_value:
+                title: smartshop.import::lang.template.mapping_file_value
+                readOnly: 1
+            db_column:
+                title: smartshop.import::lang.template.mapping_db_column
+                type: dropdown
+                options:
+                    name: smartshop.import::lang.template.mapping_name
+                    slug: smartshop.import::lang.template.mapping_slug
+                    sku: smartshop.import::lang.template.mapping_sku
+                    isbn: smartshop.import::lang.template.mapping_isbn
+                    price: smartshop.import::lang.template.mapping_price
+                    description: smartshop.import::lang.template.mapping_description
+                    width: smartshop.import::lang.template.mapping_width
+                    height: smartshop.import::lang.template.mapping_height
+                    depth: smartshop.import::lang.template.mapping_depth
+                    weight: smartshop.import::lang.template.mapping_weight
+                    is_active: smartshop.import::lang.template.mapping_active
+                    is_searchable: smartshop.import::lang.template.mapping_searchable
+                    is_unique_text: smartshop.import::lang.template.mapping_unique_text
+                    bindings: smartshop.import::lang.template.mapping_bindings
+                    categories: smartshop.import::lang.template.mapping_categories
+                    properties: smartshop.import::lang.template.mapping_properties
+                    publisher: smartshop.import::lang.template.mapping_publisher
+                    publisher_set: smartshop.import::lang.template.mapping_publisher_set

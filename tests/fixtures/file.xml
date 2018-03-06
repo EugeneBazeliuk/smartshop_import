@@ -1,0 +1,10 @@
+<ExportSpr>
+    <Record>
+        <TestFieldOne>Test value 1</TestFieldOne>
+        <TestFieldTwo>Test value 2</TestFieldTwo>
+    </Record>
+    <Record>
+        <TestFieldOne>Test value 1</TestFieldOne>
+        <TestFieldTwo>Test value 2</TestFieldTwo>
+    </Record>
+</ExportSpr>
