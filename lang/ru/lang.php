@@ -24,7 +24,20 @@ return [
         'return_to_list' => 'Вернуться к списку задач',
     ],
 
-    'task' => [],
+    'task' => [
+        // Fields
+        'id' => 'ID задания',
+        'status' => 'Статус импорта',
+        'status_done' => 'Выполнен',
+        'status_failed' => 'Не выполнен',
+        'status_waiting' => 'Ожидает выполнения',
+        'file' => 'Файл импорта',
+        'author' => 'Автор',
+        'template' => 'Шаблон импорта',
+        'template_empty' => '--- Выберите шаблон импорта ---',
+        'created' => 'Создано',
+        'updated' => 'Обновлено',
+    ],
 
     //
     // Templates
@@ -34,7 +47,7 @@ return [
         'title' => 'Шаблоны импорта',
         'description' => 'Просмотр списка шаблонов импорта',
         'return_to_list' => 'Вернуться к списку шаблонов',
-        'create_template' => 'Создать шаблон'
+        'create_template' => 'Создать шаблон',
     ],
 
     'template' => [

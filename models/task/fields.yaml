@@ -1,0 +1,17 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+
+    file:
+        label: smartshop.import::lang.task.file
+        type: fileupload
+        mode: file
+        fileTypes: xml, csv
+
+    template:
+        label: smartshop.import::lang.task.template
+        type: relation
+        emptyOption: smartshop.import::lang.task.template_empty
+

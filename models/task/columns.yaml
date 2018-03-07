@@ -1,0 +1,41 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+
+    id:
+        label: smartshop.import::lang.task.id
+        width: 1%
+
+    status_text:
+        label: smartshop.import::lang.task.status
+
+    template:
+        label: smartshop.import::lang.task.template
+        relation: template
+        select: name
+        width: 20%
+
+    author:
+        label: smartshop.import::lang.task.author
+        relation: author
+        select: login
+        width: 20%
+
+    file:
+        label: smartshop.import::lang.task.file
+        type: partial
+        path: file_column
+        cssClass: nolink
+        width: 1%
+
+    created_at:
+        label: smartshop.import::lang.task.created
+        type: date
+        width: 140px
+
+    updated_at:
+        label: smartshop.import::lang.task.updated
+        type: date
+        width: 140px

@@ -1,4 +1,5 @@
 1.0.1:
     - Initialize plugin.
     - create_templates_table.php
+    - create_tasks_table.php
     - seed_init.php
