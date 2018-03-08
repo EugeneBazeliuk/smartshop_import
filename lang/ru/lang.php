@@ -94,9 +94,20 @@ return [
     'logs' => [
         'title' => 'Журнал импорта товаров',
         'description' => 'Просмотр списка успешных импортов',
-        'return_to_list' => 'Вернуться в журнал импорта товаров',
     ],
 
-    'log' => [],
+    'log' => [
+        // Fields
+        'id' => 'ID события',
+        'created_count' => 'Создано',
+        'updated_count' => 'Обновлено',
+        'skipper_count' => 'Пропущено',
+        'warning_count' => 'Предупреждений',
+        'error_count' => 'Ошибок',
+        'created' => 'Дата создания',
+        'updated' => 'Дата обновления',
+        'author' => 'Автор',
+        'template' => 'Шаблон',
+    ],
 
 ];

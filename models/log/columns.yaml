@@ -1,0 +1,45 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+
+    id:
+        label: smartshop.import::lang.log.id
+
+    template:
+        label: smartshop.import::lang.log.template
+        relation: template
+        select: name
+        width: 20%
+
+    createdCount:
+        label: smartshop.import::lang.log.created_count
+        width: 1%
+
+    updatedCount:
+        label: smartshop.import::lang.log.updated_count
+        width: 1%
+
+    skipperCount:
+        label: smartshop.import::lang.log.skipper_count
+        width: 1%
+
+    warningCount:
+        label: smartshop.import::lang.log.warning_count
+        width: 1%
+
+    errorCount:
+        label: smartshop.import::lang.log.error_count
+        width: 1%
+
+    author:
+        label: smartshop.import::lang.log.author
+        relation: author
+        select: login
+        width: 20%
+
+    created_at:
+        label: smartshop.import::lang.log.created
+        type: date
+        width: 140px

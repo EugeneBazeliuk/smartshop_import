@@ -2,4 +2,5 @@
     - Initialize plugin.
     - create_templates_table.php
     - create_tasks_table.php
+    - create_logs_table.php
     - seed_init.php

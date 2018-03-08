@@ -44,7 +44,9 @@ class Template extends Model
      * @var array Relations AttachOne
      */
     public $attachOne = [
-        'file' => ['System\Models\File']
+        'file' => [
+            \System\Models\File::class
+        ]
     ];
 
     /**
