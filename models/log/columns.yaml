@@ -33,6 +33,13 @@ columns:
         label: smartshop.import::lang.log.error_count
         width: 1%
 
+    file:
+        label: smartshop.import::lang.log.file
+        type: partial
+        path: file_column
+        cssClass: nolink
+        width: 1%
+
     author:
         label: smartshop.import::lang.log.author
         relation: author
