@@ -12,7 +12,7 @@ class CreateTasksTable extends Migration
             $table->engine = 'InnoDB';
             // Base
             $table->increments('id');
-            $table->string('status')->nullable();
+            $table->string('status');
             // BelongTo Author
             $table->integer('author_id')->unsigned()->nullable();
             // BelongTo Template

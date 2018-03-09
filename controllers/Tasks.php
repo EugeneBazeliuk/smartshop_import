@@ -7,6 +7,7 @@ use BackendMenu;
 use Backend\Classes\Controller;
 use System\Classes\SettingsManager;
 use Smartshop\Import\Models\Task;
+use SmartShop\Import\Jobs\ProcessTask;
 
 /**
  * Tasks Back-end Controller
@@ -91,6 +92,8 @@ class Tasks extends Controller
         catch (Exception $ex) {
             Flash::error($ex->getMessage());
         }
+
+        ProcessTask::dispatch($model);
 
         return $this->listRefresh();
     }

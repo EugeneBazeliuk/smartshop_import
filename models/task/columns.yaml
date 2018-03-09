@@ -6,22 +6,22 @@ columns:
 
     id:
         label: smartshop.import::lang.task.id
+        type: text
         width: 1%
 
-    status_text:
+    statusText:
         label: smartshop.import::lang.task.status
+        type: text
 
     template:
         label: smartshop.import::lang.task.template
         relation: template
         select: name
-        width: 20%
 
     author:
         label: smartshop.import::lang.task.author
         relation: author
         select: login
-        width: 20%
 
     file:
         label: smartshop.import::lang.task.file
