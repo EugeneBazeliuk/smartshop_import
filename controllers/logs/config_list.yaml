@@ -11,9 +11,6 @@ modelClass: Smartshop\Import\Models\Log
 # List Title
 title: Manage Logs
 
-# Link URL for each record
-recordUrl: smartshop/import/logs/update/:id
-
 # Message to display if the list is empty
 noRecordsMessage: backend::lang.list.no_records
 
@@ -30,9 +27,9 @@ showSetup: true
 showSorting: true
 
 # Default sorting column
-# defaultSort:
-#     column: created_at
-#     direction: desc
+defaultSort:
+    column: created_at
+    direction: desc
 
 # Display checkboxes next to each record
 showCheckboxes: true

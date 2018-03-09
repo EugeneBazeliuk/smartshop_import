@@ -11,7 +11,11 @@ columns:
         label: smartshop.import::lang.log.template
         relation: template
         select: name
-        width: 20%
+
+    author:
+        label: smartshop.import::lang.log.author
+        relation: author
+        select: login
 
     createdCount:
         label: smartshop.import::lang.log.created_count
@@ -21,8 +25,8 @@ columns:
         label: smartshop.import::lang.log.updated_count
         width: 1%
 
-    skipperCount:
-        label: smartshop.import::lang.log.skipper_count
+    skippedCount:
+        label: smartshop.import::lang.log.skipped_count
         width: 1%
 
     warningCount:
@@ -39,12 +43,6 @@ columns:
         path: file_column
         cssClass: nolink
         width: 1%
-
-    author:
-        label: smartshop.import::lang.log.author
-        relation: author
-        select: login
-        width: 20%
 
     created_at:
         label: smartshop.import::lang.log.created

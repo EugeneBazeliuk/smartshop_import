@@ -99,8 +99,29 @@ class Log extends Model
         return $this->details['warningCount'];
     }
 
-    public function getSkipperCountAttribute()
+    public function getSkippedCountAttribute()
     {
-        return $this->details['skipperCount'];
+        return $this->details['skippedCount'];
+    }
+
+    //
+    //
+    //
+
+    /**
+     * @param array $details
+     * @param string $path
+     * @param \Backend\Models\User $user
+     *
+     * @return void
+     */
+    public static function addRecord($details, $path, $user, $template)
+    {
+        $model = new self();
+        $model->details = $details;
+        $model->file = $path;
+        $model->author = $user;
+        $model->template = $template;
+        $model->save();
     }
 }

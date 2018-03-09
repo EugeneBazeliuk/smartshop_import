@@ -1,8 +1,10 @@
 <?php namespace Smartshop\Import;
 
+use Event;
 use Backend;
 use System\Classes\PluginBase;
 use System\Classes\SettingsManager;
+use Smartshop\Import\Models\Log as ImportLog;
 
 /**
  * Import Plugin Information File
@@ -53,12 +55,27 @@ class Plugin extends PluginBase
             'logs' => [
                 'label'       => 'smartshop.import::lang.logs.title',
                 'description' => 'smartshop.import::lang.logs.description',
-                'category'    => SettingsManager::CATEGORY_LOGS,
+                'category'    => 'smartshop.import::lang.plugin.name',
                 'icon'        => 'icon-globe',
                 'url'         => Backend::url('smartshop/import/logs'),
                 'order'       => 200,
                 'permissions' => ['smartshop.import.access_logs'],
             ]
         ];
+    }
+
+    /**
+     * Register method, called when the plugin is first registered.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        /*
+         * Apply ProductImport logging
+         */
+        Event::listen('smartshop.catalog.importRun', function ($results, $path, $user, $template) {
+            ImportLog::addRecord($results, $path, $user, $template);
+        });
     }
 }

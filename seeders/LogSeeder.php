@@ -15,7 +15,7 @@ class LogSeeder extends \October\Rain\Database\Updates\Seeder
             'skipped' => [],
             'errorCount' => 1,
             'warningCount' => 0,
-            'skipperCount' => 0,
+            'skippedCount' => 0,
             'hasMessages' => true
         ],
     ];
