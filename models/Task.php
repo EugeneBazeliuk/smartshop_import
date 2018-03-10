@@ -78,7 +78,7 @@ class Task extends Model
     // Setter
     //
 
-    public function getStatusTextAttribute($value)
+    public function getStatusTextAttribute()
     {
         return trans('smartshop.import::lang.task.status_'.$this->status);
     }
@@ -111,7 +111,7 @@ class Task extends Model
     public function getImportData()
     {
         if ($this->template && $this->file) {
-            return [];
+            return $this->template->getImportData($this->file);
         }
 
         throw new Exception('Template or file does not found');

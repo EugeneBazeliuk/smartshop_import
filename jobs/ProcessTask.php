@@ -14,7 +14,6 @@ class ProcessTask implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected $task;
-    protected $productImport;
 
     /**
      * ProcessingTask constructor.
@@ -24,7 +23,6 @@ class ProcessTask implements ShouldQueue
     public function __construct(Task $task)
     {
         $this->task = $task;
-        $this->productImport = new ProductImport();
     }
 
     /**
@@ -40,7 +38,11 @@ class ProcessTask implements ShouldQueue
         // Get Import Data
         $data = $this->task->getImportData();
 
-        // Close task
+        // Run Import
+        $productImport = new ProductImport();
+        $productImport->importData($data);
+
+        // Delete task
         $this->task->delete();
     }
 

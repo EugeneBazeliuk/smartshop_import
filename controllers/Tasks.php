@@ -71,7 +71,6 @@ class Tasks extends Controller
         $config = $this->makeConfig('$/smartshop/import/models/task/fields.yaml');
         $config->alias = 'importTaskForm';
         $config->arrayName = 'ImportTask';
-        $config->context = 'create';
         $config->model = new Task;
 
         $widget = $this->makeWidget('Backend\Widgets\Form', $config);
@@ -88,12 +87,12 @@ class Tasks extends Controller
             $model->fill($data);
             $model->author = BackendAuth::getUser();
             $model->save(null, $this->createTaskFormWidget->getSessionKey());
+
+            ProcessTask::dispatch($model);
         }
         catch (Exception $ex) {
             Flash::error($ex->getMessage());
         }
-
-        ProcessTask::dispatch($model);
 
         return $this->listRefresh();
     }
