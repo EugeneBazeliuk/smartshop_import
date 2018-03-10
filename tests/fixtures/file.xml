@@ -1,10 +1,16 @@
 <ExportSpr>
     <Record>
-        <TestFieldOne>Test value 1</TestFieldOne>
-        <TestFieldTwo>Test value 2</TestFieldTwo>
+        <ID>101</ID>
+        <Article>001</Article>
+        <Name>Test Name 1</Name>
+        <Artist>Test Artist 1</Artist>
+        <Translater>Test Translater 1</Translater>
     </Record>
     <Record>
-        <TestFieldOne>Test value 1</TestFieldOne>
-        <TestFieldTwo>Test value 2</TestFieldTwo>
+        <ID>102</ID>
+        <Article>002</Article>
+        <Name>Test Name 2</Name>
+        <Artist>Test Artist 2</Artist>
+        <Translater>Test Translater 2</Translater>
     </Record>
 </ExportSpr>

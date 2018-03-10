@@ -66,7 +66,7 @@ class Templates extends Controller
             ->first();
 
         if ($file) {
-            $data['mapping'] = $model->getFileMapping($file);
+            array_add($data, 'mapping', $model->getFileMapping($file));
         }
 
         return $data;

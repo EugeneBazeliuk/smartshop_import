@@ -2,10 +2,14 @@
 
 use Model;
 use ApplicationException;
+use SmartShop\Import\Classes\ImportFileProvider;
 
 /**
  * Template Model
  *
+ * @property string $name
+ * @property string $description
+ * @property array $mapping
  * @property \System\Models\File $file
  *
  * @method \October\Rain\Database\Relations\AttachOne file
@@ -14,6 +18,9 @@ use ApplicationException;
  */
 class Template extends Model
 {
+    const FIRST_LEVEL_DELIMETER = '|';
+    const SECOND_LEVEL_DELIMETER = '::';
+
     use \October\Rain\Database\Traits\Validation;
 
     /**
@@ -53,76 +60,36 @@ class Template extends Model
      * Validation
      */
     public $rules = [
+        'file' => '',
         'name' => 'required|between:1,255',
         'mapping' => '',
         'description' => '',
-        'file' => '',
     ];
 
     /**
-     * Get file mapping
+     * @var array
+     */
+    public $firstLevelAttributes = [
+        'categories',
+    ];
+
+    /**
+     * @var
+     */
+    public $secondLevelAttributes = [
+        'bindings',
+        'properties',
+    ];
+
+    //
+    //
+    //
+
+    /**
+     * Update mapping from file
      *
      * @param \System\Models\File $file
      * @throws \ApplicationException
-     * @return array
-     */
-    public function getFileMapping($file)
-    {
-        $mapping = [];
-
-        foreach ($this->getFileFirstRow($file) as $key => $val)
-        {
-            $mapping[] = [
-                'file_column' => $key,
-                'file_value' => $val,
-                'db_column' => '',
-            ];
-        }
-
-        return $mapping;
-    }
-
-    /**
-     * Get file Data
-     */
-    public function getFileData($file)
-    {
-        $data = [];
-        $content = $this->getFileContent($file);
-
-        for ($i = 0; $i < $content->children()->count(); $i++)
-        {
-            $children = $content->children()[$i];
-
-            foreach ($this->mapping as $map) {
-
-                if (empty($map['db_column']) && empty($children->{$map['file_column']})) {
-                    continue;
-                }
-
-                switch ($map['db_column']) {
-                    case 'name':
-                    case 'slug':
-                    case 'sku':
-                    case 'isbn':
-                    case 'price':
-                    case 'description':
-                    case 'width':
-                    case 'height':
-                    case 'depth':
-                    case 'weight':
-                        break;
-                    default:
-                        $data[$i][$map['db_column']] = trim((string) $children->{$map['file_column']});
-                }
-            }
-        }
-
-        return $data;
-    }
-
-    /**
-     *
      */
     public function updateMapping($file)
     {
@@ -130,20 +97,47 @@ class Template extends Model
     }
 
     /**
-     * Get file first row
-     *
      * @param \System\Models\File $file
-     * @throws \ApplicationException
+     *
      * @return array
+     * @throws \ApplicationException
      */
-    private function getFileFirstRow($file)
+    public function getImportData($file)
     {
         $data = [];
-        $content = $this->getFileContent($file);
+        $mapping = $this->getMapping();
+        $provider = $this->getFileProvider($file);
 
-        if ($content->count()) {
-            foreach ($content->children()[0] as $key => $val) {
-                $data[$key] = trim((string) $val);
+        // Check mapping
+        if (!$provider->checkFileMapping($mapping)) {
+            throw new ApplicationException('Wrong mapping');
+        }
+
+        // Process import data
+        for ($i = 0; $i < $provider->getTotalRowsCount(); $i++)
+        {
+            $row = $provider->getFileRow($i);
+
+            foreach ($mapping as $file_col => $db_col)
+            {
+                if (empty($row[$file_col])) {
+                    continue;
+                }
+
+                if($this->isFirstLevelAttributes($db_col)) {
+                    $data[$i][$db_col][] = $row[$file_col];
+                } elseif ($this->isSecondLevelAttributes($db_col)) {
+                    $data[$i][$db_col][] = implode(self::SECOND_LEVEL_DELIMETER, [$file_col, $db_col]);
+                } else {
+                    $data[$i][$db_col] = $row[$file_col];
+                }
+            }
+
+            foreach (array_merge($this->firstLevelAttributes, $this->secondLevelAttributes) as $attribute)
+            {
+                if (isset($data[$i][$attribute])) {
+                    $data[$i][$attribute] = implode(self::FIRST_LEVEL_DELIMETER, $data[$i][$attribute]);
+                }
             }
         }
 
@@ -151,19 +145,78 @@ class Template extends Model
     }
 
     /**
-     * Get file content
+     * Get mapping
      *
-     * @param \System\Models\File $file
-     *
-     * @return \SimpleXMLElement
-     * @throws \ApplicationException
+     * @return array
      */
-    private function getFileContent($file)
+    public function getMapping()
     {
-        if (!$file instanceof \System\Models\File) {
-            throw new ApplicationException('Wrong file object');
+        $mapping = [];
+
+        foreach ($this->mapping as $map)
+        {
+            if (!isset($map['db_column']) && empty($map['db_column'])) {
+                continue;
+            }
+
+            $mapping[$map['file_column']] = $map['db_column'];
         }
 
-        return @simplexml_load_file($file->getLocalPath(), 'SimpleXMLElement', LIBXML_COMPACT);
+        return $mapping;
+    }
+
+    /**
+     * Check multiple attribute
+     *
+     * @param string $attribute
+     * @return bool
+     */
+    public function isFirstLevelAttributes($attribute)
+    {
+        return in_array($attribute, $this->firstLevelAttributes);
+    }
+
+    /**
+     * Check second level attributes
+     *
+     * @param $attribute
+     * @return bool
+     */
+    public function isSecondLevelAttributes($attribute)
+    {
+        return in_array($attribute, $this->secondLevelAttributes);
+    }
+
+    /**
+     * @param \System\Models\File $file
+     *
+     * @return array
+     * @throws \ApplicationException
+     */
+    public function getFileMapping($file)
+    {
+        $mapping = [];
+        $firstRow = $this->getFileProvider($file)->getFileFirstRow();
+
+        foreach ($firstRow as $k => $v)
+        {
+            array_push($mapping, [
+                'file_column' => $k,
+                'file_value' => $v,
+            ]);
+        }
+
+        return $mapping;
+    }
+
+    /**
+     * @param \System\Models\File $file
+     *
+     * @return \SmartShop\Import\Classes\ImportFileProvider
+     * @throws \ApplicationException
+     */
+    private function getFileProvider($file)
+    {
+        return ImportFileProvider::getInstance($file);
     }
 }

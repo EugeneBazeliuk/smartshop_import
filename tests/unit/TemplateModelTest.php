@@ -16,8 +16,11 @@ class TemplateModelTest extends PluginTestCase
     ];
 
     public $mapping = [
-        'TestFieldOne' => 'Test value 1',
-        'TestFieldTwo' => 'Test value 2',
+        ['file_column' => 'ID', 'db_column' => 'id'],
+        ['file_column' => 'Article', 'db_column' => 'sku'],
+        ['file_column' => 'Name', 'db_column' => 'title'],
+        ['file_column' => 'Artist', 'db_column' => 'bindings'],
+        ['file_column' => 'Translater', 'db_column' => 'bindings'],
     ];
 
     /**
@@ -27,12 +30,8 @@ class TemplateModelTest extends PluginTestCase
     {
         Template::truncate();
 
-        $file = $this->getImportFile();
-
-        $model = new Template();
-        $model->fill(TemplateModelTest::$template);
-        $model->file()->add($file);
-        $model->updateMapping($file);
+        $model = Template::make(self::$template);
+        $model->updateMapping($this->getImportFile());
         $model->save();
 
         // Assert model id
@@ -44,15 +43,41 @@ class TemplateModelTest extends PluginTestCase
         }
 
         // Assert mapping
-        $this->assertEquals(2, count($model->mapping));
+        $this->assertEquals(5, count($model->mapping));
+        $this->assertTrue($this->checkMapping($model->mapping));
+    }
 
-        foreach ($model->mapping as $row) {
-            $this->assertEquals($row['file_value'], $this->mapping[$row['file_column']]);
-        }
+    public function test_import_data()
+    {
+        $model = Template::make(self::$template);
+        $model->mapping = $this->mapping;
+        $model->save();
     }
 
     /**
+     * Check Mapping
      *
+     * @param $fileMapping
+     * @return bool
+     */
+    private function checkMapping($fileMapping)
+    {
+        foreach ($this->mapping as $map) {
+            foreach ($fileMapping as $index => $row) {
+                if ($map['file_column'] === $row['file_column']) {
+                    unset($fileMapping[$index]);
+                    continue;
+                }
+            }
+        }
+
+        return empty($fileMapping) ? true : false;
+    }
+
+    /**
+     * Get import File
+     *
+     * @return \System\Models\File
      */
     private function getImportFile()
     {

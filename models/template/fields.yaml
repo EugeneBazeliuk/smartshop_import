@@ -43,6 +43,7 @@ fields:
                 title: smartshop.import::lang.template.mapping_db_column
                 type: dropdown
                 options:
+                    '': ...
                     name: smartshop.import::lang.template.mapping_name
                     slug: smartshop.import::lang.template.mapping_slug
                     sku: smartshop.import::lang.template.mapping_sku

@@ -5,7 +5,7 @@ use SmartShop\Import\Models\Template;
 class TemplateSeeder extends \October\Rain\Database\Updates\Seeder
 {
     protected $mapping = [
-        'Name' => 'name',
+        'Name' => 'title',
         'Article' => 'sku',
         'isbn' => 'isbn',
         'Cost' => 'price',
