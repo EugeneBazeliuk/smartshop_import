@@ -3,6 +3,7 @@
 use BackendMenu;
 use Backend\Classes\Controller;
 use System\Classes\SettingsManager;
+use SmartShop\Import\Models\Log;
 
 /**
  * Logs Back-end Controller
@@ -37,5 +38,23 @@ class Logs extends Controller
 
         BackendMenu::setContext('October.System', 'system', 'settings');
         SettingsManager::setContext('Smartshop.Import', 'logs');
+    }
+
+    /**
+     * On view results Handler
+     *
+     * @return mixed
+     * @throws \ApplicationException
+     * @throws \SystemException
+     */
+    public function onLoadViewResults()
+    {
+        if (!$model = Log::find(post('record_ids'))) {
+            throw new \ApplicationException('Model does not found');
+        }
+
+        $this->vars['results'] = $model->getResults();
+
+        return $this->makePartial('modal_results');
     }
 }

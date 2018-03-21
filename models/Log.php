@@ -108,6 +108,11 @@ class Log extends Model
     //
     //
 
+    public function getResults()
+    {
+        return (object) $this->details;
+    }
+
     /**
      * @param array $details
      * @param string $path

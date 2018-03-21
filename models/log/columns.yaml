@@ -20,27 +20,38 @@ columns:
     createdCount:
         label: smartshop.import::lang.log.created_count
         width: 1%
+        cssClass: text-center
 
     updatedCount:
         label: smartshop.import::lang.log.updated_count
         width: 1%
+        cssClass: text-center
 
     skippedCount:
         label: smartshop.import::lang.log.skipped_count
+        type: partial
+        path: column_results
+        cssClass: nolink text-center
         width: 1%
 
     warningCount:
         label: smartshop.import::lang.log.warning_count
+        type: partial
+        path: column_results
+        cssClass: nolink text-center
         width: 1%
 
     errorCount:
         label: smartshop.import::lang.log.error_count
+        type: partial
+        path: column_results
+        cssClass: nolink text-center
         width: 1%
 
     file:
         label: smartshop.import::lang.log.file
         type: partial
-        path: file_column
+        path: column_file
         cssClass: nolink
         width: 1%
 
