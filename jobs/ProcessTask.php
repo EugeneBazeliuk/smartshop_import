@@ -14,6 +14,7 @@ class ProcessTask implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected $task;
+    protected $sessionKey;
 
     /**
      * ProcessingTask constructor.
@@ -23,6 +24,7 @@ class ProcessTask implements ShouldQueue
     public function __construct(Task $task)
     {
         $this->task = $task;
+        $this->sessionKey = uniqid();
     }
 
     /**
@@ -35,21 +37,21 @@ class ProcessTask implements ShouldQueue
         // Mark Task as in process
         $this->task->processing();
 
-        // Get Import Data
-        $data = $this->task->getImportData();
-
         // Run Import
         $productImport = new ProductImport();
-        $productImport->importData($data);
+        $productImport->setImportTemplate($this->task->template);
+        $productImport->import_file()->add($this->task->file, $this->sessionKey);
+        $productImport->importData($this->task->getImportData(), $this->sessionKey);
 
         // Delete task
-        $this->task->delete();
+        $this->task->done();
     }
 
     /**
      * Failed handler
      * @param \Exception $ex
      * @return void
+     * @todo add error message to Task
      */
     public function failed(Exception $ex)
     {

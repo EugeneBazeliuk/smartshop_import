@@ -49,7 +49,7 @@ class Logs extends Controller
      */
     public function onLoadViewResults()
     {
-        if (!$model = Log::find(post('record_ids'))) {
+        if (!$model = Log::find(post('record_id'))) {
             throw new \ApplicationException('Model does not found');
         }
 

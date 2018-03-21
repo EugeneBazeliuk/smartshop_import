@@ -118,6 +118,17 @@ class Task extends Model
     }
 
     /**
+     * Mark Task as finished
+     *
+     * @return void
+     */
+    public function done()
+    {
+        $this->status = self::STATUS_DONE;
+        $this->save();
+    }
+
+    /**
      * Mark Task as failed
      *
      * @return void

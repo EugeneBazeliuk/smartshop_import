@@ -9,7 +9,7 @@ list: $/smartshop/import/models/log/columns.yaml
 modelClass: Smartshop\Import\Models\Log
 
 # List Title
-title: Manage Logs
+title: smartshop.import::lang.logs.title
 
 # Message to display if the list is empty
 noRecordsMessage: backend::lang.list.no_records

@@ -9,7 +9,7 @@ list: $/smartshop/import/models/task/columns.yaml
 modelClass: Smartshop\Import\Models\Task
 
 # List Title
-title: Manage Tasks
+title: smartshop.import::lang.tasks.title
 
 # Message to display if the list is empty
 noRecordsMessage: backend::lang.list.no_records
