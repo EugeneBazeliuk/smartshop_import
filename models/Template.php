@@ -127,7 +127,7 @@ class Template extends Model
                 if($this->isFirstLevelAttributes($db_col)) {
                     $data[$i][$db_col][] = $row[$file_col];
                 } elseif ($this->isSecondLevelAttributes($db_col)) {
-                    $data[$i][$db_col][] = implode(self::SECOND_LEVEL_DELIMETER, [$file_col, $db_col]);
+                    $data[$i][$db_col][] = implode(self::SECOND_LEVEL_DELIMETER, [$file_col, $row[$file_col]]);
                 } else {
                     $data[$i][$db_col] = $row[$file_col];
                 }
