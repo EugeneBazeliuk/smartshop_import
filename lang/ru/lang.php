@@ -9,8 +9,8 @@ return [
     'plugin' => [
         'name' => 'Импорт товаров',
         'description' => 'Создание шаблонов, задач импорта и сохранение журнала импорта товаров',
-        'access_task' => 'Управление заданиями импорта',
-        'access_template' => 'Управление шаблонами импорта',
+        'access_tasks' => 'Управление заданиями импорта',
+        'access_templates' => 'Управление шаблонами импорта',
         'access_logs' => 'Управление журналом импорта'
     ],
 
@@ -67,7 +67,7 @@ return [
         'mapping_file_column' => 'Столбцы файла',
         'mapping_file_value' => 'Значения столбцов файла',
         'mapping_db_column' => 'Поля базы данных',
-        'mapping_name' => 'Название товара',
+        'mapping_title' => 'Название товара',
         'mapping_slug' => 'URL параметр товара',
         'mapping_sku' => 'SKU код товара',
         'mapping_isbn' => 'ISBN номер товара',

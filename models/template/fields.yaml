@@ -44,7 +44,7 @@ fields:
                 type: dropdown
                 options:
                     '': ...
-                    name: smartshop.import::lang.template.mapping_name
+                    title: smartshop.import::lang.template.mapping_title
                     slug: smartshop.import::lang.template.mapping_slug
                     sku: smartshop.import::lang.template.mapping_sku
                     isbn: smartshop.import::lang.template.mapping_isbn

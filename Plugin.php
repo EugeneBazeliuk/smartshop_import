@@ -3,7 +3,6 @@
 use Event;
 use Backend;
 use System\Classes\PluginBase;
-use System\Classes\SettingsManager;
 use Smartshop\Import\Models\Log as ImportLog;
 
 /**
@@ -41,7 +40,7 @@ class Plugin extends PluginBase
                 'icon'        => 'icon-globe',
                 'url'         => Backend::url('smartshop/import/tasks'),
                 'order'       => 200,
-                'permissions' => ['smartshop.import.access_task'],
+                'permissions' => ['smartshop.import.access_tasks'],
             ],
             'templates' => [
                 'label'       => 'smartshop.import::lang.templates.title',
@@ -50,7 +49,7 @@ class Plugin extends PluginBase
                 'icon'        => 'icon-globe',
                 'url'         => Backend::url('smartshop/import/templates'),
                 'order'       => 200,
-                'permissions' => ['smartshop.import.access_template'],
+                'permissions' => ['smartshop.import.access_templates'],
             ],
             'logs' => [
                 'label'       => 'smartshop.import::lang.logs.title',
@@ -61,6 +60,28 @@ class Plugin extends PluginBase
                 'order'       => 200,
                 'permissions' => ['smartshop.import.access_logs'],
             ]
+        ];
+    }
+
+    /**
+     * Register plugin permissions
+     * @return array
+     */
+    public function registerPermissions()
+    {
+        return [
+            'smartshop.import.access_tasks' => [
+                'tab'   => 'smartshop.import::lang.plugin.tab',
+                'label' => 'smartshop.import::lang.plugin.access_tasks'
+            ],
+            'smartshop.import.access_templates' => [
+                'tab'   => 'smartshop.import::lang.plugin.tab',
+                'label' => 'smartshop.import::lang.plugin.access_templates'
+            ],
+            'smartshop.import.access_logs' => [
+                'tab'   => 'smartshop.import::lang.plugin.tab',
+                'label' => 'smartshop.import::lang.plugin.access_logs'
+            ],
         ];
     }
 
